@@ -1,4 +1,11 @@
-import { useState, useRef, useCallback } from "react";
+"use client";
+
+import { useState, useCallback } from "react";
+import { generatePlan } from "@/lib/planner/generate-plan";
+import type { CourseCatalog, SemesterPlan, ScheduledCourse } from "@/lib/planner/types";
+import { AVAILABLE_MAJORS, AVAILABLE_MINORS, MAJOR_JSON_MAP, MINOR_JSON_MAP } from "@/lib/config";
+import csMajor from "@/data/penn-state/computer-science-major.json";
+import mathMinor from "@/data/penn-state/math-minor.json";
 
 type Page = "setup" | "plan";
 
@@ -24,8 +31,13 @@ interface YearData {
   courses: Course[];
 }
 
-const MAJORS = ["Computer Science","Mathematics","Biology","Psychology","English","History","Physics","Chemistry","Business Administration","Engineering","Nursing","Education","Political Science","Sociology","Economics"];
-const MINORS = ["Mathematics","Statistics","Data Science","Philosophy","Art","Music","Spanish","Communications","Environmental Science"];
+const MAJORS = AVAILABLE_MAJORS.map((m) => m.label);
+const MINORS = AVAILABLE_MINORS.map((m) => m.label);
+
+const CATALOGS: Record<string, CourseCatalog> = {
+  "computer-science-major": csMajor as CourseCatalog,
+  "math-minor": mathMinor as CourseCatalog,
+};
 
 const GRADE_POINTS: Record<string, number> = {
   "A+": 4.0,"A": 4.0,"A-": 3.7,
@@ -38,32 +50,18 @@ const GRADE_OPTIONS = ["","A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-
 
 function makeId() { return Math.random().toString(36).slice(2, 9); }
 
-const INITIAL_YEARS: YearData[] = [
-  { id: "y1", label: "Year 1", courses: [
-    { id: makeId(), name: "ENGL 015 - Rhetoric & Comp", credits: 3, grade: "" },
-    { id: makeId(), name: "MATH 140 - Calculus I", credits: 4, grade: "" },
-    { id: makeId(), name: "CMPSC 101 - Intro to CS", credits: 3, grade: "" },
-    { id: makeId(), name: "General Ed: Arts", credits: 3, grade: "" },
-  ]},
-  { id: "y2", label: "Year 2", courses: [
-    { id: makeId(), name: "MATH 230 - Calculus & Vector Analysis", credits: 4, grade: "" },
-    { id: makeId(), name: "CMPSC 221 - Object-Oriented Prog", credits: 3, grade: "" },
-    { id: makeId(), name: "CMPSC 360 - Discrete Math", credits: 3, grade: "" },
-    { id: makeId(), name: "STAT 318 - Statistics", credits: 3, grade: "" },
-  ]},
-  { id: "y3", label: "Year 3", courses: [
-    { id: makeId(), name: "CMPSC 431W - Database Mgmt", credits: 3, grade: "" },
-    { id: makeId(), name: "CMPSC 461 - Prog Lang Concepts", credits: 3, grade: "" },
-    { id: makeId(), name: "CMPSC 473 - Software Eng", credits: 3, grade: "" },
-    { id: makeId(), name: "CMPSC 441 - Artificial Intel", credits: 3, grade: "" },
-  ]},
-  { id: "y4", label: "Year 4", courses: [
-    { id: makeId(), name: "CMPSC 483W - Senior Design I", credits: 3, grade: "" },
-    { id: makeId(), name: "CMPSC 445 - Machine Learning", credits: 3, grade: "" },
-    { id: makeId(), name: "CMPSC 484 - Senior Design II", credits: 3, grade: "" },
-    { id: makeId(), name: "Free Elective", credits: 3, grade: "" },
-  ]},
-];
+function planToYearData(plan: SemesterPlan[]): YearData[] {
+  return plan.map((p) => ({
+    id: p.id,
+    label: p.label,
+    courses: p.courses.map((c) => ({
+      id: c.id,
+      name: c.name,
+      credits: c.credits,
+      grade: c.grade,
+    })),
+  }));
+}
 
 // ── Aurora ───────────────────────────────────────────────────────────────────
 function AuroraBg() {
@@ -148,7 +146,7 @@ const CSS = `
 
 // ── Setup Page ────────────────────────────────────────────────────────────────
 function SetupPage({ onSubmit }: { onSubmit: (f: FormData) => void }) {
-  const [form, setForm] = useState<FormData>({name:"",university:"",major:"Computer Science",doubleMajor:"",minors:["Mathematics"],credits:""});
+  const [form, setForm] = useState<FormData>({name:"",university:"",major:"Computer Science",doubleMajor:"",minors:[],credits:""});
   const set = <K extends keyof FormData>(k:K,v:FormData[K]) => setForm(f=>({...f,[k]:v}));
 
   return (
@@ -174,16 +172,18 @@ function SetupPage({ onSubmit }: { onSubmit: (f: FormData) => void }) {
         <div className="field">
           <div className="lbl">
             <span>Minor(s) <span style={{color:"rgba(255,255,255,0.2)",fontWeight:400,fontSize:10,textTransform:"none",letterSpacing:0}}>Optional</span></span>
-            {form.minors.length<3&&<button className="add-btn" onClick={()=>set("minors",[...form.minors,"Statistics"])}>+ Add</button>}
+            {form.minors.length<3&&<button className="add-btn" onClick={()=>set("minors",[...form.minors,MINORS[0]||"Mathematics"])}>+ Add</button>}
           </div>
           {form.minors.map((mn,i)=>(
             <div key={i} style={{display:"flex",gap:8,marginBottom:8,alignItems:"center"}}>
-              <select className="inp" value={mn} style={{flex:1}} onChange={e=>{const m=[...form.minors];m[i]=e.target.value;set("minors",m);}}>
+              <select className="inp" value={mn} style={{flex:1}} onChange={e=>{const v=e.target.value;if(v) {const m=[...form.minors];m[i]=v;set("minors",m);} else set("minors",form.minors.filter((_,j)=>j!==i));}}>
+                <option value="">No minor</option>
                 {MINORS.map(m=><option key={m}>{m}</option>)}
               </select>
               {form.minors.length>1&&<button className="rm-btn" onClick={()=>set("minors",form.minors.filter((_,j)=>j!==i))}>×</button>}
             </div>
           ))}
+          {form.minors.length===0&&<div style={{marginBottom:8}}><select className="inp" value="" onChange={e=>{if(e.target.value)set("minors",[e.target.value]);}}><option value="">Select a minor (optional)</option>{MINORS.map(m=><option key={m}>{m}</option>)}</select></div>}
         </div>
         <div className="field"><div className="lbl">Credits Completed <span style={{color:"rgba(255,255,255,0.2)",fontWeight:400,fontSize:10,textTransform:"none",letterSpacing:0}}>Optional</span></div><input className="inp" type="number" placeholder="e.g. 67" value={form.credits} onChange={e=>set("credits",e.target.value)}/></div>
         <button className="submit-btn" onClick={()=>onSubmit(form)}>Generate My Academic Plan →</button>
@@ -203,10 +203,6 @@ function CourseCard({
   onDragEnd: () => void;
   isDragging: boolean;
 }) {
-  const [editing, setEditing] = useState(false);
-  const [editName, setEditName] = useState(course.name);
-  const [editCredits, setEditCredits] = useState(String(course.credits));
-
   const gradeColor = course.grade
     ? GRADE_POINTS[course.grade] >= 3.0 ? "#4ade80"
     : GRADE_POINTS[course.grade] >= 2.0 ? "#facc15"
@@ -228,69 +224,42 @@ function CourseCard({
         marginBottom: 8,
       }}
     >
-      {editing ? (
-        <div style={{display:"flex",flexDirection:"column",gap:6}}>
-          <input
-            value={editName}
-            onChange={e=>setEditName(e.target.value)}
-            style={{background:"rgba(255,255,255,0.1)",border:"1px solid rgba(255,255,255,0.2)",borderRadius:8,color:"#fff",fontFamily:"Montserrat,sans-serif",fontSize:12,fontWeight:600,padding:"6px 8px",outline:"none"}}
-          />
-          <div style={{display:"flex",gap:6,alignItems:"center"}}>
-            <input
-              type="number" min={1} max={6} value={editCredits}
-              onChange={e=>setEditCredits(e.target.value)}
-              style={{background:"rgba(255,255,255,0.1)",border:"1px solid rgba(255,255,255,0.2)",borderRadius:8,color:"#fff",fontFamily:"Montserrat,sans-serif",fontSize:12,fontWeight:600,padding:"6px 8px",outline:"none",width:60}}
-            />
-            <span style={{fontSize:11,color:"rgba(255,255,255,0.4)",fontWeight:600}}>credits</span>
-            <button onClick={()=>{onUpdate({...course,name:editName,credits:parseInt(editCredits)||3});setEditing(false);}} style={{marginLeft:"auto",background:"rgba(192,84,252,0.25)",border:"1px solid rgba(192,84,252,0.5)",borderRadius:7,color:"#c084fc",fontFamily:"Montserrat,sans-serif",fontSize:11,fontWeight:700,padding:"5px 10px",cursor:"pointer"}}>Save</button>
-            <button onClick={()=>setEditing(false)} style={{background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.15)",borderRadius:7,color:"rgba(255,255,255,0.5)",fontFamily:"Montserrat,sans-serif",fontSize:11,fontWeight:700,padding:"5px 10px",cursor:"pointer"}}>Cancel</button>
-          </div>
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        {/* Drag handle */}
+        <div style={{display:"flex",flexDirection:"column",gap:3,flexShrink:0,opacity:0.3}}>
+          {[0,1,2].map(i=><div key={i} style={{width:14,height:1.5,background:"#fff",borderRadius:2}}/>)}
         </div>
-      ) : (
-        <div style={{display:"flex",alignItems:"center",gap:8}}>
-          {/* Drag handle */}
-          <div style={{display:"flex",flexDirection:"column",gap:3,flexShrink:0,opacity:0.3}}>
-            {[0,1,2].map(i=><div key={i} style={{width:14,height:1.5,background:"#fff",borderRadius:2}}/>)}
-          </div>
 
-          {/* Course name */}
-          <div style={{flex:1,minWidth:0}}>
-            <div style={{fontSize:12,fontWeight:700,color:"#fff",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{course.name}</div>
-            <div style={{fontSize:10,color:"rgba(255,255,255,0.38)",fontWeight:600,marginTop:2}}>{course.credits} cr</div>
-          </div>
-
-          {/* Grade picker */}
-          <select
-            value={course.grade}
-            onChange={e=>onUpdate({...course,grade:e.target.value})}
-            onClick={e=>e.stopPropagation()}
-            style={{
-              background:"rgba(255,255,255,0.06)",
-              border:`1.5px solid ${course.grade ? gradeColor+"66" : "rgba(255,255,255,0.12)"}`,
-              borderRadius:8, color: course.grade ? gradeColor : "rgba(255,255,255,0.35)",
-              fontFamily:"Montserrat,sans-serif", fontSize:11, fontWeight:700,
-              padding:"4px 6px", cursor:"pointer", outline:"none", appearance:"none",
-              width:48, textAlign:"center",
-            }}
-          >
-            {GRADE_OPTIONS.map(g=><option key={g} value={g} style={{background:"#1a0a2e",color:"#fff"}}>{g||"—"}</option>)}
-          </select>
-
-          {/* Edit btn */}
-          <button
-            onClick={e=>{e.stopPropagation();setEditing(true);setEditName(course.name);setEditCredits(String(course.credits));}}
-            style={{background:"none",border:"none",color:"rgba(255,255,255,0.3)",cursor:"pointer",fontSize:14,padding:"2px 4px",lineHeight:1,transition:"color .15s",flexShrink:0}}
-            title="Edit"
-          >✏️</button>
-
-          {/* Remove btn */}
-          <button
-            onClick={e=>{e.stopPropagation();onRemove();}}
-            style={{background:"none",border:"none",color:"rgba(255,100,100,0.45)",cursor:"pointer",fontSize:15,padding:"2px 4px",lineHeight:1,transition:"color .15s",flexShrink:0}}
-            title="Remove"
-          >×</button>
+        {/* Course name */}
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{fontSize:12,fontWeight:700,color:"#fff",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{course.name}</div>
+          <div style={{fontSize:10,color:"rgba(255,255,255,0.38)",fontWeight:600,marginTop:2}}>{course.credits} cr</div>
         </div>
-      )}
+
+        {/* Grade picker */}
+        <select
+          value={course.grade}
+          onChange={e=>onUpdate({...course,grade:e.target.value})}
+          onClick={e=>e.stopPropagation()}
+          style={{
+            background:"rgba(255,255,255,0.06)",
+            border:`1.5px solid ${course.grade ? gradeColor+"66" : "rgba(255,255,255,0.12)"}`,
+            borderRadius:8, color: course.grade ? gradeColor : "rgba(255,255,255,0.35)",
+            fontFamily:"Montserrat,sans-serif", fontSize:11, fontWeight:700,
+            padding:"4px 6px", cursor:"pointer", outline:"none", appearance:"none",
+            width:48, textAlign:"center",
+          }}
+        >
+          {GRADE_OPTIONS.map(g=><option key={g} value={g} style={{background:"#1a0a2e",color:"#fff"}}>{g||"—"}</option>)}
+        </select>
+
+        {/* Remove btn */}
+        <button
+          onClick={e=>{e.stopPropagation();onRemove();}}
+          style={{background:"none",border:"none",color:"rgba(255,100,100,0.45)",cursor:"pointer",fontSize:15,padding:"2px 4px",lineHeight:1,transition:"color .15s",flexShrink:0}}
+          title="Remove"
+        >×</button>
+      </div>
     </div>
   );
 }
@@ -365,7 +334,30 @@ function YearBox({
 
 // ── Plan Page ─────────────────────────────────────────────────────────────────
 function PlanPage({ form, onBack }: { form: FormData; onBack: () => void }) {
-  const [years, setYears] = useState<YearData[]>(INITIAL_YEARS);
+  const majorKey = MAJOR_JSON_MAP[form.major];
+  const minorKey = form.minors[0] ? MINOR_JSON_MAP[form.minors[0]] : undefined;
+  const majorCatalog = majorKey ? CATALOGS[majorKey] : {};
+  const minorCatalog = minorKey ? CATALOGS[minorKey] : {};
+  const getInitialYears = useCallback(() => {
+    if (!majorKey) {
+      return [
+        { id: "y1", label: "Year 1", courses: [] },
+        { id: "y2", label: "Year 2", courses: [] },
+        { id: "y3", label: "Year 3", courses: [] },
+        { id: "y4", label: "Year 4", courses: [] },
+      ];
+    }
+    const plan = generatePlan(
+      majorCatalog,
+      minorCatalog,
+      form.major,
+      form.minors[0] || undefined,
+      parseInt(form.credits) || 0
+    );
+    return planToYearData(plan);
+  }, [majorKey, form.major, form.minors, form.credits]);
+
+  const [years, setYears] = useState<YearData[]>(getInitialYears);
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [dragSource, setDragSource] = useState<string | null>(null);
 
@@ -436,6 +428,7 @@ function PlanPage({ form, onBack }: { form: FormData; onBack: () => void }) {
           <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
             {[
               {l:"Major", v:form.major, color:"rgba(255,255,255,0.85)"},
+              ...(form.minors[0] ? [{l:"Minor", v:form.minors[0], color:"rgba(255,255,255,0.85)"}] : []),
               {l:"Credits Done", v:String(totalCreditsCompleted + (parseInt(form.credits)||0)), color:"rgba(255,255,255,0.85)"},
               {l:"Credits Left", v:String(creditsRemaining), color:"rgba(255,255,255,0.85)"},
               {l:"Planned", v:String(totalCreditsPlanned)+" cr", color:"rgba(255,255,255,0.85)"},

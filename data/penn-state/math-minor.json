@@ -1,63 +1,502 @@
 {
-  "MATH 140": {"className": "MATH 140", "credits": "4", "difficulty": "4", "type": "MIC"},
-  "MATH 141": {"className": "MATH 141", "credits": "4", "difficulty": "4", "type": "MIC"},
-  "MATH 220": {"className": "MATH 220", "credits": "2", "difficulty": "3", "type": "MIC"},
-  "MATH 230": {"className": "MATH 230", "credits": "4", "difficulty": "4", "type": "MIC"},
-  "MATH 231": {"className": "MATH 231", "credits": "4", "difficulty": "4", "type": "MIC"},
-  "MATH 232": {"className": "MATH 232", "credits": "4", "difficulty": "4.5", "type": "MIC"},
-  "MATH 250": {"className": "MATH 250", "credits": "3", "difficulty": "4", "type": "MIC"},
-  "MATH 251": {"className": "MATH 251", "credits": "4", "difficulty": "4.5", "type": "MIC"},
-  "MATH 310": {"className": "MATH 310", "credits": "3", "difficulty": "3.5", "type": "MIC"},
-  "MATH 311W": {"className": "MATH 311W", "credits": "3", "difficulty": "3.5", "type": "MIC"},
-  "MATH 312": {"className": "MATH 312", "credits": "3", "difficulty": "4", "type": "MIC"},
-
-  "MATH 400": {"className": "MATH 400", "credits": "1-2", "difficulty": "2.5", "type": "MIE"},
-  "MATH 401": {"className": "MATH 401", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 403": {"className": "MATH 403", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 403H": {"className": "MATH 403H", "credits": "3", "difficulty": "5", "type": "MIE"},
-  "MATH 404": {"className": "MATH 404", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 405": {"className": "MATH 405", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 406": {"className": "MATH 406", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 410": {"className": "MATH 410", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 411": {"className": "MATH 411", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 412": {"className": "MATH 412", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 414": {"className": "MATH 414", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 414H": {"className": "MATH 414H", "credits": "3", "difficulty": "5", "type": "MIE"},
-  "MATH 415": {"className": "MATH 415", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 416": {"className": "MATH 416", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 417": {"className": "MATH 417", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 418": {"className": "MATH 418", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 419": {"className": "MATH 419", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 421": {"className": "MATH 421", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 425": {"className": "MATH 425", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 426": {"className": "MATH 426", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 427": {"className": "MATH 427", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 428": {"className": "MATH 428", "credits": "1", "difficulty": "2.5", "type": "MIE"},
-  "MATH 429": {"className": "MATH 429", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 430": {"className": "MATH 430", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 435": {"className": "MATH 435", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 436": {"className": "MATH 436", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 436H": {"className": "MATH 436H", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 437": {"className": "MATH 437", "credits": "3", "difficulty": "5", "type": "MIE"},
-  "MATH 441": {"className": "MATH 441", "credits": "3", "difficulty": "3.5", "type": "MIE"},
-  "MATH 448": {"className": "MATH 448", "credits": "3", "difficulty": "3.5", "type": "MIE"},
-  "MATH 449": {"className": "MATH 449", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 450": {"className": "MATH 450", "credits": "3", "difficulty": "3.5", "type": "MIE"},
-  "MATH 451": {"className": "MATH 451", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 452": {"className": "MATH 452", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 455": {"className": "MATH 455", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 455H": {"className": "MATH 455H", "credits": "3", "difficulty": "5", "type": "MIE"},
-  "MATH 456": {"className": "MATH 456", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 457": {"className": "MATH 457", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 465": {"className": "MATH 465", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 467": {"className": "MATH 467", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 468": {"className": "MATH 468", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 470": {"className": "MATH 470", "credits": "3", "difficulty": "3.5", "type": "MIE"},
-  "MATH 471": {"className": "MATH 471", "credits": "4", "difficulty": "3.5", "type": "MIE"},
-  "MATH 475Y": {"className": "MATH 475Y", "credits": "3", "difficulty": "3", "type": "MIE"},
-  "MATH 479": {"className": "MATH 479", "credits": "3", "difficulty": "4.5", "type": "MIE"},
-  "MATH 482": {"className": "MATH 482", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 484": {"className": "MATH 484", "credits": "3", "difficulty": "4", "type": "MIE"},
-  "MATH 485": {"className": "MATH 485", "credits": "3", "difficulty": "3.5", "type": "MIE"},
-  "MATH 486": {"className": "MATH 486", "credits": "3", "difficulty": "4", "type": "MIE"}
+  "MATH 140": {
+    "className": "MATH 140",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "MIC",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 141": {
+    "className": "MATH 141",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "MIC",
+    "prerequisite": [
+      "MATH 140"
+    ],
+    "concurrent": []
+  },
+  "MATH 220": {
+    "className": "MATH 220",
+    "credits": "2",
+    "difficulty": "3",
+    "type": "MIC",
+    "prerequisite": [
+      "MATH 141"
+    ],
+    "concurrent": []
+  },
+  "MATH 230": {
+    "className": "MATH 230",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "MIC",
+    "prerequisite": [
+      "MATH 141"
+    ],
+    "concurrent": []
+  },
+  "MATH 231": {
+    "className": "MATH 231",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "MIC",
+    "prerequisite": [
+      "MATH 230"
+    ],
+    "concurrent": []
+  },
+  "MATH 232": {
+    "className": "MATH 232",
+    "credits": "4",
+    "difficulty": "4.5",
+    "type": "MIC",
+    "prerequisite": [
+      "MATH 231"
+    ],
+    "concurrent": []
+  },
+  "MATH 250": {
+    "className": "MATH 250",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIC",
+    "prerequisite": [
+      "MATH 232"
+    ],
+    "concurrent": []
+  },
+  "MATH 251": {
+    "className": "MATH 251",
+    "credits": "4",
+    "difficulty": "4.5",
+    "type": "MIC",
+    "prerequisite": [
+      "MATH 250"
+    ],
+    "concurrent": []
+  },
+  "MATH 310": {
+    "className": "MATH 310",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MIC",
+    "prerequisite": [
+      "MATH 251"
+    ],
+    "concurrent": []
+  },
+  "MATH 311W": {
+    "className": "MATH 311W",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MIC",
+    "prerequisite": [
+      "MATH 250"
+    ],
+    "concurrent": []
+  },
+  "MATH 312": {
+    "className": "MATH 312",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIC",
+    "prerequisite": [
+      "MATH 251"
+    ],
+    "concurrent": []
+  },
+  "MATH 400": {
+    "className": "MATH 400",
+    "credits": "1-2",
+    "difficulty": "2.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 401": {
+    "className": "MATH 401",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": ["MATH 312"],
+    "concurrent": []
+  },
+  "MATH 403": {
+    "className": "MATH 403",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 403H": {
+    "className": "MATH 403H",
+    "credits": "3",
+    "difficulty": "5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 404": {
+    "className": "MATH 404",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 405": {
+    "className": "MATH 405",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 406": {
+    "className": "MATH 406",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 410": {
+    "className": "MATH 410",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 411": {
+    "className": "MATH 411",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 412": {
+    "className": "MATH 412",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 414": {
+    "className": "MATH 414",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 414H": {
+    "className": "MATH 414H",
+    "credits": "3",
+    "difficulty": "5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 415": {
+    "className": "MATH 415",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 416": {
+    "className": "MATH 416",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 417": {
+    "className": "MATH 417",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 418": {
+    "className": "MATH 418",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 419": {
+    "className": "MATH 419",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 421": {
+    "className": "MATH 421",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 425": {
+    "className": "MATH 425",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 426": {
+    "className": "MATH 426",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 427": {
+    "className": "MATH 427",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 428": {
+    "className": "MATH 428",
+    "credits": "1",
+    "difficulty": "2.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 429": {
+    "className": "MATH 429",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 430": {
+    "className": "MATH 430",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 435": {
+    "className": "MATH 435",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 436": {
+    "className": "MATH 436",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 436H": {
+    "className": "MATH 436H",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 437": {
+    "className": "MATH 437",
+    "credits": "3",
+    "difficulty": "5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 441": {
+    "className": "MATH 441",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MIE",
+    "prerequisite": ["MATH 312"],
+    "concurrent": []
+  },
+  "MATH 448": {
+    "className": "MATH 448",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 449": {
+    "className": "MATH 449",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 450": {
+    "className": "MATH 450",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 451": {
+    "className": "MATH 451",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 452": {
+    "className": "MATH 452",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 455": {
+    "className": "MATH 455",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 455H": {
+    "className": "MATH 455H",
+    "credits": "3",
+    "difficulty": "5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 456": {
+    "className": "MATH 456",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 457": {
+    "className": "MATH 457",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 465": {
+    "className": "MATH 465",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 467": {
+    "className": "MATH 467",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 468": {
+    "className": "MATH 468",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 470": {
+    "className": "MATH 470",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 471": {
+    "className": "MATH 471",
+    "credits": "4",
+    "difficulty": "3.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 475Y": {
+    "className": "MATH 475Y",
+    "credits": "3",
+    "difficulty": "3",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 479": {
+    "className": "MATH 479",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 482": {
+    "className": "MATH 482",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 484": {
+    "className": "MATH 484",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 485": {
+    "className": "MATH 485",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 486": {
+    "className": "MATH 486",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MIE",
+    "prerequisite": [],
+    "concurrent": []
+  }
 }

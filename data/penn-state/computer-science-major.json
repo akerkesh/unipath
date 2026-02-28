@@ -1,56 +1,435 @@
 {
-  "CMPSC 121": { "className": "CMPSC 121", "credits": "3", "difficulty": "2.5", "type": "ETM" },
-  "CMPSC 131": { "className": "CMPSC 131", "credits": "3", "difficulty": "2.5", "type": "ETM" },
-  "CMPSC 122": { "className": "CMPSC 122", "credits": "3", "difficulty": "3", "type": "ETM" },
-  "CMPSC 132": { "className": "CMPSC 132", "credits": "3", "difficulty": "3", "type": "ETM" },
-  "CMPSC 150N": { "className": "CMPSC 150N", "credits": "3", "difficulty": "2", "type": "ETM" },
-  "MATH 140": { "className": "MATH 140", "credits": "4", "difficulty": "4", "type": "ETM" },
-  "MATH 141": { "className": "MATH 141", "credits": "4", "difficulty": "4", "type": "ETM" },
-  "PHYS 211": { "className": "PHYS 211", "credits": "4", "difficulty": "4", "type": "ETM" },
-  "PHYS 212": { "className": "PHYS 212", "credits": "4", "difficulty": "4", "type": "ETM" },
-
-  "CMPSC 221": { "className": "CMPSC 221", "credits": "3", "difficulty": "3", "type": "MAC" },
-  "CMPSC 222": { "className": "CMPSC 222", "credits": "3", "difficulty": "3.5", "type": "MAC" },
-  "CMPSC 315": { "className": "CMPSC 315", "credits": "4", "difficulty": "4", "type": "MAC" },
-  "CMPSC 316": { "className": "CMPSC 316", "credits": "4", "difficulty": "4", "type": "MAC" },
-  "CMPSC 320": { "className": "CMPSC 320", "credits": "3", "difficulty": "3", "type": "MAC" },
-  "CMPSC 360": { "className": "CMPSC 360", "credits": "3", "difficulty": "3.5", "type": "MAC" },
-  "CMPSC 461": { "className": "CMPSC 461", "credits": "3", "difficulty": "3.5", "type": "MAC" },
-  "CMPSC 465": { "className": "CMPSC 465", "credits": "3", "difficulty": "4", "type": "MAC" },
-  "CMPSC 483W": { "className": "CMPSC 483W", "credits": "3", "difficulty": "3.5", "type": "MAC" },
-  "CMPEN 270": { "className": "CMPEN 270", "credits": "4", "difficulty": "3.5", "type": "MAC" },
-  "MATH 220": { "className": "MATH 220", "credits": "3", "difficulty": "3", "type": "MAC" },
-  "MATH 230": { "className": "MATH 230", "credits": "4", "difficulty": "4", "type": "MAC" },
-  "STAT 318": { "className": "STAT 318", "credits": "3", "difficulty": "3.5", "type": "MAC" },
-  "STAT 319": { "className": "STAT 319", "credits": "3", "difficulty": "3.5", "type": "MAC" },
-
-  "CMPSC 431W": { "className": "CMPSC 431W", "credits": "3", "difficulty": "3.5", "type": "MAE" },
-  "CMPSC 432": { "className": "CMPSC 432", "credits": "3", "difficulty": "3.5", "type": "MAE" },
-  "CMPSC 442": { "className": "CMPSC 442", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPSC 443": { "className": "CMPSC 443", "credits": "3", "difficulty": "3.5", "type": "MAE" },
-  "CMPSC 444": { "className": "CMPSC 444", "credits": "3", "difficulty": "3.5", "type": "MAE" },
-  "CMPSC 447": { "className": "CMPSC 447", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPSC 448": { "className": "CMPSC 448", "credits": "3", "difficulty": "4.5", "type": "MAE" },
-  "CMPSC 449": { "className": "CMPSC 449", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPSC 450": { "className": "CMPSC 450", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPSC 451": { "className": "CMPSC 451", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPSC 455": { "className": "CMPSC 455", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPSC 456": { "className": "CMPSC 456", "credits": "3", "difficulty": "4.5", "type": "MAE" },
-  "CMPSC 458": { "className": "CMPSC 458", "credits": "3", "difficulty": "3.5", "type": "MAE" },
-  "CMPSC 464": { "className": "CMPSC 464", "credits": "3", "difficulty": "4.5", "type": "MAE" },
-  "CMPSC 466": { "className": "CMPSC 466", "credits": "3", "difficulty": "4.5", "type": "MAE" },
-  "CMPSC 467": { "className": "CMPSC 467", "credits": "3", "difficulty": "4.5", "type": "MAE" },
-  "CMPSC 471": { "className": "CMPSC 471", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPSC 473": { "className": "CMPSC 473", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPSC 475": { "className": "CMPSC 475", "credits": "3", "difficulty": "3", "type": "MAE" },
-  "CMPSC 476": { "className": "CMPSC 476", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPSC 478": { "className": "CMPSC 478", "credits": "3", "difficulty": "5", "type": "MAE" },
-  "CMPSC 489": { "className": "CMPSC 489", "credits": "3", "difficulty": "4.5", "type": "MAE" },
-
-  "CMPEN 362": { "className": "CMPEN 362", "credits": "3", "difficulty": "3.5", "type": "MAE" },
-  "CMPEN 431": { "className": "CMPEN 431", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPEN 454": { "className": "CMPEN 454", "credits": "3", "difficulty": "4", "type": "MAE" },
-  "CMPEN 462": { "className": "CMPEN 462", "credits": "3", "difficulty": "4", "type": "MAE" },
-
-  "EE 456": { "className": "EE 456", "credits": "3", "difficulty": "4", "type": "MAE" }
+  "CMPSC 121": {
+    "className": "CMPSC 121",
+    "credits": "3",
+    "difficulty": "2.5",
+    "type": "ETM",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "CMPSC 131": {
+    "className": "CMPSC 131",
+    "credits": "3",
+    "difficulty": "2.5",
+    "type": "ETM",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "CMPSC 122": {
+    "className": "CMPSC 122",
+    "credits": "3",
+    "difficulty": "3",
+    "type": "ETM",
+    "prerequisite": [
+      "CMPSC 121"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 132": {
+    "className": "CMPSC 132",
+    "credits": "3",
+    "difficulty": "3",
+    "type": "ETM",
+    "prerequisite": [
+      "CMPSC 131"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 150N": {
+    "className": "CMPSC 150N",
+    "credits": "3",
+    "difficulty": "2",
+    "type": "ETM",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 140": {
+    "className": "MATH 140",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "ETM",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 141": {
+    "className": "MATH 141",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "ETM",
+    "prerequisite": [
+      "MATH 140"
+    ],
+    "concurrent": []
+  },
+  "PHYS 211": {
+    "className": "PHYS 211",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "ETM",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "PHYS 212": {
+    "className": "PHYS 212",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "ETM",
+    "prerequisite": [
+      "PHYS 211"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 221": {
+    "className": "CMPSC 221",
+    "credits": "3",
+    "difficulty": "3",
+    "type": "MAC",
+    "prerequisite": [
+      "CMPSC 122"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 222": {
+    "className": "CMPSC 222",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAC",
+    "prerequisite": [
+      "CMPSC 122"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 315": {
+    "className": "CMPSC 315",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "MAC",
+    "prerequisite": [
+      "CMPSC 222"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 316": {
+    "className": "CMPSC 316",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "MAC",
+    "prerequisite": [
+      "CMPSC 222"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 320": {
+    "className": "CMPSC 320",
+    "credits": "3",
+    "difficulty": "3",
+    "type": "MAC",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 360": {
+    "className": "CMPSC 360",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAC",
+    "prerequisite": [
+      "MATH 220"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 461": {
+    "className": "CMPSC 461",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAC",
+    "prerequisite": [
+      "CMPSC 221",
+      "CMPSC 222"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 465": {
+    "className": "CMPSC 465",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAC",
+    "prerequisite": [
+      "CMPSC 360"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 483W": {
+    "className": "CMPSC 483W",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAC",
+    "prerequisite": [
+      "CMPSC 465"
+    ],
+    "concurrent": []
+  },
+  "CMPEN 270": {
+    "className": "CMPEN 270",
+    "credits": "4",
+    "difficulty": "3.5",
+    "type": "MAC",
+    "prerequisite": [],
+    "concurrent": []
+  },
+  "MATH 220": {
+    "className": "MATH 220",
+    "credits": "3",
+    "difficulty": "3",
+    "type": "MAC",
+    "prerequisite": [
+      "MATH 141"
+    ],
+    "concurrent": []
+  },
+  "MATH 230": {
+    "className": "MATH 230",
+    "credits": "4",
+    "difficulty": "4",
+    "type": "MAC",
+    "prerequisite": [
+      "MATH 141"
+    ],
+    "concurrent": []
+  },
+  "STAT 318": {
+    "className": "STAT 318",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAC",
+    "prerequisite": [
+      "MATH 141"
+    ],
+    "concurrent": []
+  },
+  "STAT 319": {
+    "className": "STAT 319",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAC",
+    "prerequisite": [
+      "STAT 318"
+    ],
+    "concurrent": []
+  },
+  "CMPSC 431W": {
+    "className": "CMPSC 431W",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 432": {
+    "className": "CMPSC 432",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 442": {
+    "className": "CMPSC 442",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 443": {
+    "className": "CMPSC 443",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 444": {
+    "className": "CMPSC 444",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 447": {
+    "className": "CMPSC 447",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 448": {
+    "className": "CMPSC 448",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 449": {
+    "className": "CMPSC 449",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 450": {
+    "className": "CMPSC 450",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 451": {
+    "className": "CMPSC 451",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 455": {
+    "className": "CMPSC 455",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 456": {
+    "className": "CMPSC 456",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 458": {
+    "className": "CMPSC 458",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 464": {
+    "className": "CMPSC 464",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 466": {
+    "className": "CMPSC 466",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 467": {
+    "className": "CMPSC 467",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 471": {
+    "className": "CMPSC 471",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 473": {
+    "className": "CMPSC 473",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 475": {
+    "className": "CMPSC 475",
+    "credits": "3",
+    "difficulty": "3",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 476": {
+    "className": "CMPSC 476",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 478": {
+    "className": "CMPSC 478",
+    "credits": "3",
+    "difficulty": "5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPSC 489": {
+    "className": "CMPSC 489",
+    "credits": "3",
+    "difficulty": "4.5",
+    "type": "MAE",
+    "prerequisite": ["CMPSC 222"],
+    "concurrent": []
+  },
+  "CMPEN 362": {
+    "className": "CMPEN 362",
+    "credits": "3",
+    "difficulty": "3.5",
+    "type": "MAE",
+    "prerequisite": ["CMPEN 270"],
+    "concurrent": []
+  },
+  "CMPEN 431": {
+    "className": "CMPEN 431",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPEN 270"],
+    "concurrent": []
+  },
+  "CMPEN 454": {
+    "className": "CMPEN 454",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPEN 270"],
+    "concurrent": []
+  },
+  "CMPEN 462": {
+    "className": "CMPEN 462",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPEN 270"],
+    "concurrent": []
+  },
+  "EE 456": {
+    "className": "EE 456",
+    "credits": "3",
+    "difficulty": "4",
+    "type": "MAE",
+    "prerequisite": ["CMPEN 270"],
+    "concurrent": []
+  }
 }
