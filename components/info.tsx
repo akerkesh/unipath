@@ -25,10 +25,17 @@ interface Course {
   grade: string;
 }
 
+interface SemesterData {
+  label: string;
+  courses: Course[];
+}
+
 interface YearData {
   id: string;
   label: string;
-  courses: Course[];
+  fall: SemesterData;
+  spring: SemesterData;
+  yearIndex: number;
 }
 
 const MAJORS = AVAILABLE_MAJORS.map((m) => m.label);
@@ -50,17 +57,36 @@ const GRADE_OPTIONS = ["","A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-
 
 function makeId() { return Math.random().toString(36).slice(2, 9); }
 
-function planToYearData(plan: SemesterPlan[]): YearData[] {
-  return plan.map((p) => ({
-    id: p.id,
-    label: p.label,
-    courses: p.courses.map((c) => ({
-      id: c.id,
-      name: c.name,
-      credits: c.credits,
-      grade: c.grade,
-    })),
-  }));
+function planToYearData(semesters: SemesterPlan[]): YearData[] {
+  const years: YearData[] = [];
+  for (let y = 0; y < 4; y++) {
+    const fall = semesters[y * 2];
+    const spring = semesters[y * 2 + 1];
+    years.push({
+      id: `y${y + 1}`,
+      label: `Year ${y + 1}`,
+      yearIndex: y,
+      fall: {
+        label: "Fall",
+        courses: (fall?.courses ?? []).map((c) => ({
+          id: c.id,
+          name: c.name,
+          credits: c.credits,
+          grade: c.grade,
+        })),
+      },
+      spring: {
+        label: "Spring",
+        courses: (spring?.courses ?? []).map((c) => ({
+          id: c.id,
+          name: c.name,
+          credits: c.credits,
+          grade: c.grade,
+        })),
+      },
+    });
+  }
+  return years;
 }
 
 // ── Aurora ───────────────────────────────────────────────────────────────────
@@ -264,7 +290,88 @@ function CourseCard({
   );
 }
 
-// ── Year Box ─────────────────────────────────────────────────────────────────
+const YEAR_GRADIENT = [
+  "rgba(34, 197, 94, 0.25)",   // Year 1: green (easy)
+  "rgba(163, 230, 53, 0.2)",   // Year 2: lime
+  "rgba(250, 204, 21, 0.2)",   // Year 3: yellow
+  "rgba(248, 113, 113, 0.2)",  // Year 4: red (hard)
+];
+const YEAR_BORDER = [
+  "rgba(34, 197, 94, 0.5)",
+  "rgba(163, 230, 53, 0.45)",
+  "rgba(250, 204, 21, 0.45)",
+  "rgba(248, 113, 113, 0.5)",
+];
+
+function SemesterSection({
+  sem, year, semesterKey, onUpdate, onAddCourse, draggingId, setDraggingId, dragSource, setDragSource, onDropCourse,
+}: {
+  sem: SemesterData;
+  year: YearData;
+  semesterKey: "fall" | "spring";
+  onUpdate: (y: YearData) => void;
+  onAddCourse: (yearId: string, sk: "fall" | "spring") => void;
+  draggingId: string | null;
+  setDraggingId: (id: string | null) => void;
+  dragSource: string | null;
+  setDragSource: (id: string | null) => void;
+  onDropCourse: (courseId: string, from: string, to: string) => void;
+}) {
+  const [dragOver, setDragOver] = useState(false);
+  const targetId = `${year.id}-${semesterKey}`;
+  const totalCredits = sem.courses.reduce((s, c) => s + c.credits, 0);
+
+  const updateSemester = (courses: Course[]) => {
+    onUpdate({
+      ...year,
+      [semesterKey]: { ...sem, courses },
+    });
+  };
+
+  return (
+    <div
+      onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+      onDragLeave={() => setDragOver(false)}
+      onDrop={(e) => {
+        e.preventDefault();
+        setDragOver(false);
+        if (draggingId && dragSource) onDropCourse(draggingId, dragSource, targetId);
+      }}
+      style={{
+        background: dragOver ? "rgba(192,84,252,0.12)" : "rgba(255,255,255,0.03)",
+        border: `1px solid ${dragOver ? "rgba(192,84,252,0.5)" : "rgba(255,255,255,0.08)"}`,
+        borderRadius: 12,
+        marginBottom: 10,
+        padding: "10px 12px",
+        transition: "all .15s",
+      }}
+    >
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:8}}>
+        <span style={{fontSize:11,fontWeight:700,color:"rgba(255,255,255,0.5)",textTransform:"uppercase",letterSpacing:".06em"}}>{sem.label}</span>
+        <span style={{fontSize:10,color:"rgba(255,255,255,0.35)",fontWeight:600}}>{totalCredits} cr</span>
+      </div>
+      {sem.courses.length === 0 && (
+        <div style={{textAlign:"center",padding:"16px 0",color:"rgba(255,255,255,0.18)",fontSize:11,fontWeight:600}}>Drop courses here</div>
+      )}
+      {sem.courses.map((course) => (
+        <CourseCard
+          key={course.id}
+          course={course}
+          isDragging={draggingId === course.id}
+          onDragStart={() => { setDraggingId(course.id); setDragSource(targetId); }}
+          onDragEnd={() => { setDraggingId(null); setDragSource(null); }}
+          onRemove={() => updateSemester(sem.courses.filter((c) => c.id !== course.id))}
+          onUpdate={(updated) => updateSemester(sem.courses.map((c) => (c.id === updated.id ? updated : c)))}
+        />
+      ))}
+      <button
+        onClick={() => onAddCourse(year.id, semesterKey)}
+        style={{width:"100%",marginTop:6,background:"rgba(192,84,252,0.12)",border:"1px dashed rgba(192,84,252,0.35)",borderRadius:8,color:"#c084fc",fontFamily:"Montserrat,sans-serif",fontSize:10,fontWeight:700,padding:"6px",cursor:"pointer",letterSpacing:".03em"}}
+      >+ Add course</button>
+    </div>
+  );
+}
+
 function YearBox({
   year, onUpdate, onAddCourse,
   draggingId, setDraggingId, dragSource, setDragSource,
@@ -272,61 +379,61 @@ function YearBox({
 }: {
   year: YearData;
   onUpdate: (y: YearData) => void;
-  onAddCourse: () => void;
+  onAddCourse: (yearId: string, semesterKey: "fall" | "spring") => void;
   draggingId: string | null;
   setDraggingId: (id: string | null) => void;
   dragSource: string | null;
   setDragSource: (id: string | null) => void;
-  onDropCourse: (courseId: string, fromYearId: string, toYearId: string) => void;
+  onDropCourse: (courseId: string, from: string, to: string) => void;
 }) {
-  const [dragOver, setDragOver] = useState(false);
-  const totalCredits = year.courses.reduce((s,c)=>s+c.credits,0);
+  const totalCredits = year.fall.courses.reduce((s, c) => s + c.credits, 0) + year.spring.courses.reduce((s, c) => s + c.credits, 0);
+  const bgColor = YEAR_GRADIENT[year.yearIndex] ?? YEAR_GRADIENT[0];
+  const borderColor = YEAR_BORDER[year.yearIndex] ?? YEAR_BORDER[0];
 
   return (
     <div
-      onDragOver={e=>{e.preventDefault();setDragOver(true);}}
-      onDragLeave={()=>setDragOver(false)}
-      onDrop={e=>{
-        e.preventDefault(); setDragOver(false);
-        if (draggingId && dragSource) onDropCourse(draggingId, dragSource, year.id);
-      }}
       style={{
-        background: dragOver ? "rgba(192,84,252,0.1)" : "rgba(255,255,255,0.04)",
-        border: `1.5px solid ${dragOver ? "rgba(192,84,252,0.5)" : "rgba(255,255,255,0.1)"}`,
-        borderRadius: 18, overflow: "hidden",
+        background: bgColor,
+        border: `1.5px solid ${borderColor}`,
+        borderRadius: 18,
+        overflow: "hidden",
         backdropFilter: "blur(14px)",
         transition: "all .15s",
-        flex: "1 1 260px", minWidth: 240,
+        flex: "1 1 280px",
+        minWidth: 260,
       }}
     >
-      {/* Year header */}
-      <div style={{padding:"14px 16px 10px",borderBottom:"1px solid rgba(255,255,255,0.07)",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+      <div style={{padding:"14px 16px 10px",borderBottom:"1px solid rgba(255,255,255,0.1)",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
         <div>
           <div style={{fontSize:14,fontWeight:800,color:"#fff",letterSpacing:"-0.01em"}}>{year.label}</div>
-          <div style={{fontSize:10,color:"rgba(255,255,255,0.35)",fontWeight:600,marginTop:2}}>{totalCredits} credits · {year.courses.length} courses</div>
+          <div style={{fontSize:10,color:"rgba(255,255,255,0.4)",fontWeight:600,marginTop:2}}>{totalCredits} credits total</div>
         </div>
-        <button
-          onClick={onAddCourse}
-          style={{background:"rgba(192,84,252,0.18)",border:"1.5px solid rgba(192,84,252,0.35)",borderRadius:8,color:"#c084fc",fontFamily:"Montserrat,sans-serif",fontSize:11,fontWeight:700,padding:"5px 10px",cursor:"pointer",letterSpacing:".03em"}}
-        >+ Add</button>
       </div>
-
-      {/* Courses */}
-      <div style={{padding:"10px 12px"}}>
-        {year.courses.length === 0 && (
-          <div style={{textAlign:"center",padding:"24px 0",color:"rgba(255,255,255,0.2)",fontSize:12,fontWeight:600}}>Drop courses here</div>
-        )}
-        {year.courses.map(course=>(
-          <CourseCard
-            key={course.id}
-            course={course}
-            isDragging={draggingId === course.id}
-            onDragStart={()=>{setDraggingId(course.id);setDragSource(year.id);}}
-            onDragEnd={()=>{setDraggingId(null);setDragSource(null);}}
-            onRemove={()=>onUpdate({...year,courses:year.courses.filter(c=>c.id!==course.id)})}
-            onUpdate={updated=>onUpdate({...year,courses:year.courses.map(c=>c.id===updated.id?updated:c)})}
-          />
-        ))}
+      <div style={{padding:"12px"}}>
+        <SemesterSection
+          sem={year.fall}
+          year={year}
+          semesterKey="fall"
+          onUpdate={onUpdate}
+          onAddCourse={onAddCourse}
+          draggingId={draggingId}
+          setDraggingId={setDraggingId}
+          dragSource={dragSource}
+          setDragSource={setDragSource}
+          onDropCourse={onDropCourse}
+        />
+        <SemesterSection
+          sem={year.spring}
+          year={year}
+          semesterKey="spring"
+          onUpdate={onUpdate}
+          onAddCourse={onAddCourse}
+          draggingId={draggingId}
+          setDraggingId={setDraggingId}
+          dragSource={dragSource}
+          setDragSource={setDragSource}
+          onDropCourse={onDropCourse}
+        />
       </div>
     </div>
   );
@@ -340,12 +447,13 @@ function PlanPage({ form, onBack }: { form: FormData; onBack: () => void }) {
   const minorCatalog = minorKey ? CATALOGS[minorKey] : {};
   const getInitialYears = useCallback(() => {
     if (!majorKey) {
-      return [
-        { id: "y1", label: "Year 1", courses: [] },
-        { id: "y2", label: "Year 2", courses: [] },
-        { id: "y3", label: "Year 3", courses: [] },
-        { id: "y4", label: "Year 4", courses: [] },
-      ];
+      return [1, 2, 3, 4].map((n) => ({
+        id: `y${n}`,
+        label: `Year ${n}`,
+        yearIndex: n - 1,
+        fall: { label: "Fall", courses: [] },
+        spring: { label: "Spring", courses: [] },
+      }));
     }
     const plan = generatePlan(
       majorCatalog,
@@ -365,27 +473,39 @@ function PlanPage({ form, onBack }: { form: FormData; onBack: () => void }) {
     setYears(ys => ys.map(y => y.id === updated.id ? updated : y));
   }, []);
 
-  const addCourse = useCallback((yearId: string) => {
+  const addCourse = useCallback((yearId: string, semesterKey: "fall" | "spring") => {
     const newCourse: Course = { id: makeId(), name: "New Course", credits: 3, grade: "" };
-    setYears(ys => ys.map(y => y.id === yearId ? { ...y, courses: [...y.courses, newCourse] } : y));
+    setYears((ys) =>
+      ys.map((y) =>
+        y.id === yearId
+          ? { ...y, [semesterKey]: { ...y[semesterKey], courses: [...y[semesterKey].courses, newCourse] } }
+          : y
+      )
+    );
   }, []);
 
-  const dropCourse = useCallback((courseId: string, fromYearId: string, toYearId: string) => {
-    if (fromYearId === toYearId) return;
-    setYears(ys => {
-      const fromYear = ys.find(y => y.id === fromYearId);
-      const course = fromYear?.courses.find(c => c.id === courseId);
+  const dropCourse = useCallback((courseId: string, from: string, to: string) => {
+    if (from === to) return;
+    const [fromYearId, fromSem] = from.includes("-") ? from.split("-") : [from, "fall"];
+    const [toYearId, toSem] = to.includes("-") ? to.split("-") : [to, "fall"];
+    const fromSemKey = fromSem === "spring" ? "spring" : "fall";
+    const toSemKey = toSem === "spring" ? "spring" : "fall";
+    setYears((ys) => {
+      const fromYear = ys.find((y) => y.id === fromYearId);
+      const course = fromYear?.[fromSemKey]?.courses?.find((c) => c.id === courseId);
       if (!course) return ys;
-      return ys.map(y => {
-        if (y.id === fromYearId) return { ...y, courses: y.courses.filter(c => c.id !== courseId) };
-        if (y.id === toYearId)   return { ...y, courses: [...y.courses, course] };
+      return ys.map((y) => {
+        if (y.id === fromYearId)
+          return { ...y, [fromSemKey]: { ...y[fromSemKey], courses: y[fromSemKey].courses.filter((c) => c.id !== courseId) } };
+        if (y.id === toYearId)
+          return { ...y, [toSemKey]: { ...y[toSemKey], courses: [...y[toSemKey].courses, course] } };
         return y;
       });
     });
   }, []);
 
   // Stats
-  const allCourses = years.flatMap(y => y.courses);
+  const allCourses = years.flatMap((y) => [...y.fall.courses, ...y.spring.courses]);
   const gradedCourses = allCourses.filter(c => c.grade && c.grade in GRADE_POINTS);
   const totalCreditsCompleted = gradedCourses.reduce((s, c) => s + c.credits, 0);
   const totalCreditsPlanned = allCourses.reduce((s, c) => s + c.credits, 0);
@@ -445,12 +565,12 @@ function PlanPage({ form, onBack }: { form: FormData; onBack: () => void }) {
         {/* Year grid */}
         <div style={{padding:"20px 24px 48px",flex:1,overflowY:"auto"}}>
           <div style={{display:"flex",gap:16,flexWrap:"wrap",alignItems:"flex-start"}}>
-            {years.map(year=>(
+            {years.map((year) => (
               <YearBox
                 key={year.id}
                 year={year}
                 onUpdate={updateYear}
-                onAddCourse={()=>addCourse(year.id)}
+                onAddCourse={addCourse}
                 draggingId={draggingId}
                 setDraggingId={setDraggingId}
                 dragSource={dragSource}
@@ -461,14 +581,23 @@ function PlanPage({ form, onBack }: { form: FormData; onBack: () => void }) {
           </div>
 
           {/* Legend */}
-          <div style={{marginTop:24,display:"flex",gap:16,flexWrap:"wrap",opacity:0.5}}>
-            {[{c:"#4ade80",l:"A / 4.0 GPA"},{c:"#facc15",l:"B / 3.0 GPA"},{c:"#f87171",l:"C or below"}].map(g=>(
+          <div style={{marginTop:24,display:"flex",gap:20,flexWrap:"wrap",alignItems:"center"}}>
+            <div style={{display:"flex",alignItems:"center",gap:6,fontSize:11,fontWeight:600,color:"rgba(255,255,255,0.6)"}}>
+              <span style={{color:"rgba(255,255,255,0.4)"}}>Difficulty:</span>
+              <div style={{display:"flex",alignItems:"center",gap:4}}><div style={{width:10,height:10,borderRadius:4,background:YEAR_GRADIENT[0],border:`1px solid ${YEAR_BORDER[0]}`}}/></div>
+              <div style={{display:"flex",alignItems:"center",gap:4}}><div style={{width:10,height:10,borderRadius:4,background:YEAR_GRADIENT[1],border:`1px solid ${YEAR_BORDER[1]}`}}/></div>
+              <div style={{display:"flex",alignItems:"center",gap:4}}><div style={{width:10,height:10,borderRadius:4,background:YEAR_GRADIENT[2],border:`1px solid ${YEAR_BORDER[2]}`}}/></div>
+              <div style={{display:"flex",alignItems:"center",gap:4}}><div style={{width:10,height:10,borderRadius:4,background:YEAR_GRADIENT[3],border:`1px solid ${YEAR_BORDER[3]}`}}/></div>
+              <span style={{fontSize:10,color:"rgba(255,255,255,0.35)"}}>Y1→Y4 (easy→hard)</span>
+            </div>
+            <div style={{width:1,height:16,background:"rgba(255,255,255,0.15)"}}/>
+            {[{c:"#4ade80",l:"A / 4.0 GPA"},{c:"#facc15",l:"B / 3.0 GPA"},{c:"#f87171",l:"C or below"}].map((g) => (
               <div key={g.l} style={{display:"flex",alignItems:"center",gap:6,fontSize:11,fontWeight:600,color:"rgba(255,255,255,0.6)"}}>
                 <div style={{width:8,height:8,borderRadius:"50%",background:g.c}}/>
                 {g.l}
               </div>
             ))}
-            <div style={{fontSize:11,fontWeight:600,color:"rgba(255,255,255,0.4)"}}>• Drag courses between years to rearrange</div>
+            <div style={{fontSize:11,fontWeight:600,color:"rgba(255,255,255,0.4)"}}>• Drag courses between semesters to rearrange</div>
           </div>
         </div>
       </div>

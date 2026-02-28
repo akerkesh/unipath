@@ -259,24 +259,5 @@ export function generatePlan(
     }
   }
 
-  function toYearData(semesters: SemesterPlan[]): SemesterPlan[] {
-    const yearMap: Record<string, SemesterPlan> = {};
-    for (let i = 0; i < 8; i++) {
-      const year = Math.floor(i / 2) + 1;
-      const key = `y${year}`;
-      if (!yearMap[key]) {
-        yearMap[key] = {
-          id: key,
-          label: `Year ${year}`,
-          courses: [],
-        };
-      }
-      yearMap[key].courses.push(...semesters[i].courses);
-    }
-    return Object.values(yearMap).sort((a, b) =>
-      a.id.localeCompare(b.id)
-    );
-  }
-
-  return toYearData(semesters);
+  return semesters;
 }
